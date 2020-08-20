@@ -8,6 +8,8 @@ import Carrinho from './components/Carrinho'
 
 import shoppingCartIcon from './img/shopping_cart.svg'
 
+import products from './database/produtos'
+
 const CartButton = styled.button`
   cursor: pointer;
   position: fixed;
@@ -38,6 +40,8 @@ class App extends Component {
     filtroValorMaximo: Infinity,
     filtroValorMinimo: -Infinity,
     filtroNomeProduto: '',
+    mostrarCarrinho: true,
+    iconeCarrinho: [],
   }
 
   onChangeValorMaximo = (e) => {
@@ -61,6 +65,56 @@ class App extends Component {
       filtroNomeProduto: ''
     })
   }
+
+  adicionarAOCarrinho = (id) => {
+    const item = products.find(product => id === product.id)
+    const adicionado = this.state.iconeCarrinho.some(product => id === product.id)
+    
+    if (adicionado) {
+      this.adicionarQuantidade(id)
+    } else {
+      const itemTratado = {
+        id: item.id,
+        nome: item.nome,
+        valor: item.valor,
+        quantidade: 1
+      }
+  
+      this.setState({iconeCarrinho: [...this.state.iconeCarrinho, itemTratado]})
+    }
+  }
+
+  adicionarQuantidade = (id) => {
+    const carrinho = this.state.iconeCarrinho
+
+    carrinho.forEach(product => {
+      if (id === product.id) {
+        product.quantidade += 1
+      }
+    })
+
+    this.setState({iconeCarrinho: carrinho})
+  }
+
+  removerQuantidade = (id) => {
+    const carrinho = this.state.iconeCarrinho
+
+    carrinho.forEach(product => {
+      if (id === product.id) {
+        product.quantidade -= 1
+      }
+    }) 
+
+    this.setState({iconeCarrinho: carrinho.filter(item => item.quantidade > 0)})
+  }
+
+  limparCarrinho = () => {
+    this.setState({iconeCarrinho: []})
+  }
+
+  toggleCarrinho = () => {
+    this.setState({mostrarCarrinho: !this.state.mostrarCarrinho})
+  }
   
   render() {
     return (
@@ -75,15 +129,25 @@ class App extends Component {
           onChangeNomeProduto={this.onChangeNomeProduto}
         />
 
-        <Home 
+        <Home
+          produtos={products} 
           valorMaximo={this.state.filtroValorMaximo}
           valorMinimo={this.state.filtroValorMinimo}
-          nome={this.state.filtroNomeProduto}  
+          nome={this.state.filtroNomeProduto}
+          onAdicionarAoCarrinho={this.adicionarAOCarrinho}  
         />
   
-        <Carrinho />
+        {
+          this.state.mostrarCarrinho && 
+          <Carrinho 
+            listaCarrinho={this.state.iconeCarrinho}
+            onLimparCarrinho={this.limparCarrinho}
+            onAdicionar={this.adicionarQuantidade}
+            onRemover={this.removerQuantidade}
+          />
+        }
 
-        <CartButton><img src={shoppingCartIcon} alt="Shopping Cart Icon"/></CartButton>
+        <CartButton onClick={this.toggleCarrinho}><img src={shoppingCartIcon} alt="Shopping Cart Icon"/></CartButton>
       </div>
     );
   }
