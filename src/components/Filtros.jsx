@@ -13,6 +13,10 @@ const StyledDiv = styled.div`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  input {
+    width: 12vw;
+  }
 `
 
 const StyledButton = styled.button`

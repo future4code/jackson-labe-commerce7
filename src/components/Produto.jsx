@@ -55,7 +55,7 @@ class Produto extends Component {
           <p><strong>Velocidade: </strong>{this.props.velocidade}</p>
           <p><strong>Armamento: </strong>{this.props.armamento}</p>
           <StyledPrice>R$ {this.props.valor}</StyledPrice>
-          <BotaoAdicionar>Adicionar ao carrinho</BotaoAdicionar>
+          <BotaoAdicionar onClick={() => this.props.onAdicionarAoCarrinho(this.props.productId)}>Adicionar ao carrinho</BotaoAdicionar>
         </Container>
       )
   }
