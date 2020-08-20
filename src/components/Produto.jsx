@@ -17,13 +17,32 @@ const BotaoAdicionar = styled.button`
 `
 
 const Container = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   border: 1px dashed orange;
   padding: 5px;
 
-  img{width:100%}
+  img{
+    width:100%
+  }
 
+  p {
+    margin: 5px 0px;
+  }
+
+  h3{
+    align-self: center;
+  }
 `
 
+const StyledPrice = styled.p`
+  font-size: 1.5rem;
+  color: green;
+  font-weight: bold;
+  align-self: flex-end;
+  margin: 10px 0px !important; 
+`
 
 class Produto extends Component {
   
@@ -31,8 +50,11 @@ class Produto extends Component {
       return (
         <Container>
           <img src= {this.props.imagem} />
-          <p>{this.props.nome}</p>
-          <p>{this.props.valor}</p>
+          <h3>{this.props.nome}</h3>
+          <p><strong>Comprimento: </strong>{this.props.comprimento}</p>
+          <p><strong>Velocidade: </strong>{this.props.velocidade}</p>
+          <p><strong>Armamento: </strong>{this.props.armamento}</p>
+          <StyledPrice>R$ {this.props.valor}</StyledPrice>
           <BotaoAdicionar>Adicionar ao carrinho</BotaoAdicionar>
         </Container>
       )

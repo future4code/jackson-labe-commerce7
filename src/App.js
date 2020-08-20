@@ -34,12 +34,52 @@ const CartButton = styled.button`
 `
 
 class App extends Component {
+  state = {
+    filtroValorMaximo: Infinity,
+    filtroValorMinimo: -Infinity,
+    filtroNomeProduto: '',
+  }
+
+  onChangeValorMaximo = (e) => {
+    this.setState({filtroValorMaximo: Number(e.target.value)})
+  }
+
+  onChangeValorMinimo = (e) => {
+    this.setState({filtroValorMinimo: Number(e.target.value)})
+  }
+
+  onChangeNomeProduto = (e) => {
+    this.setState({filtroNomeProduto: e.target.value})
+  }
+
+  handleLimparFiltros = (e) => {
+    e.preventDefault()
+
+    this.setState({
+      filtroValorMaximo: Infinity,
+      filtroValorMinimo: -Infinity,
+      filtroNomeProduto: ''
+    })
+  }
+  
   render() {
     return (
       <div className="App">
-        <Filtros />
+        <Filtros 
+          valorMaximo={this.state.filtroValorMaximo}
+          valorMinimo={this.state.filtroValorMinimo}
+          nome={this.state.filtroNomeProduto}
+          limparFiltros={this.handleLimparFiltros}
+          onChangeValorMaximo={this.onChangeValorMaximo}
+          onChangeValorMinimo={this.onChangeValorMinimo}
+          onChangeNomeProduto={this.onChangeNomeProduto}
+        />
 
-        <Home />
+        <Home 
+          valorMaximo={this.state.filtroValorMaximo}
+          valorMinimo={this.state.filtroValorMinimo}
+          nome={this.state.filtroNomeProduto}  
+        />
   
         <Carrinho />
 
