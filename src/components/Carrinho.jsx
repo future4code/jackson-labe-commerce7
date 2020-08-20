@@ -1,4 +1,19 @@
 import React, {Component} from 'react'
+import styled from 'styled-components'
+
+const Car = styled.div`
+  border: 1px solid black;
+  padding: 10px;
+
+  h2 {
+    margin: 5px 0px;
+  }
+` 
+const CarProd = styled.div`
+	display: flex;
+ 	flex-direction: column;
+`
+
 
 class Carrinho extends Component {
   
@@ -6,19 +21,23 @@ class Carrinho extends Component {
   
   render() {
     return (
-      <div>
+      <Car>
 
-          <h1>Carrinho</h1>
+          <h2>Carrinho</h2>
+			
+			<CarProd>
 
-          <div><p>item X</p></div>
-          <div><p>item X</p></div>
+	          <div><span>item </span><span> X</span></div>
+	          <div><span>item </span><span> X</span></div>
+	          <div><span>item </span><span> X</span></div>
+	          
 
-          <div><p>Total: R$ valor</p></div> 
+	          <div>Total: R$ valor</div> 
 
-          
+          	</CarProd>
        
 
-      </div>         
+      </Car>         
     )                      
   }
 }
