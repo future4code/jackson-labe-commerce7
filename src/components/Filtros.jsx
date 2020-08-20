@@ -15,6 +15,10 @@ const StyledForm = styled.form`
   flex-direction: column;
 `
 
+const StyledButton = styled.button`
+  margin-top: 10px;
+`
+
 class Filtros extends Component {
   render() {
     return (
@@ -23,13 +27,15 @@ class Filtros extends Component {
 
         <StyledForm>
             <label htmlFor="">Valor Máximo:</label>
-            <input type="number"/>
+            <input type="number" value={this.props.valorMaximo} onChange={this.props.onChangeValorMaximo} min={this.props.valorMinimo} step={50}/>
           
             <label htmlFor="">Valor Mínimo:</label>
-            <input type="number"/>
+            <input type="number" value={this.props.valorMinimo} onChange={this.props.onChangeValorMinimo} min="0" max={this.props.valorMaximo} step={50}/>
           
             <label htmlFor="">Buscar Produto:</label>
-            <input type="text"/>
+            <input type="text" value={this.props.nome} onChange={this.props.onChangeNomeProduto}/>
+
+            <StyledButton onClick={this.props.limparFiltros}>Limpar Filtros</StyledButton>
         </StyledForm>
 
       </StyledDiv>
