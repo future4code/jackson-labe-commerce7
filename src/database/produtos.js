@@ -64,7 +64,7 @@ export default [
   },
   {
     id: 8,
-    nome: 'Destroyers Ressurgent',
+    nome: 'Destroyer Ressurgent',
     valor: 1000000,
     imagem: "https://super.abril.com.br/wp-content/uploads/2019/11/si_410_starwars_des_ressurgent.png",
     comprimento: "2,915 m",
