@@ -23,15 +23,31 @@ const CartButton = styled.button`
   border: none;
 
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35);
-  transition: box-shadow 1s;
+  transition: box-shadow 1s, background-color 1s ease-out;
 
   :hover {
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.35);
+    background-color: lightgray;
   }
 
   img {
     height: 40px;
     width: 40px;
+  }
+
+  div {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    background-color: red;
+    color: white;
   }
 `
 
@@ -40,7 +56,7 @@ class App extends Component {
     filtroValorMaximo: Infinity,
     filtroValorMinimo: -Infinity,
     filtroNomeProduto: '',
-    mostrarCarrinho: true,
+    mostrarCarrinho: false,
     iconeCarrinho: [],
   }
 
@@ -115,6 +131,10 @@ class App extends Component {
   toggleCarrinho = () => {
     this.setState({mostrarCarrinho: !this.state.mostrarCarrinho})
   }
+
+  contarItems = () => {
+    return this.state.iconeCarrinho.reduce((total, item) => total + item.quantidade, 0)
+  }
   
   render() {
     return (
@@ -147,7 +167,10 @@ class App extends Component {
           />
         }
 
-        <CartButton onClick={this.toggleCarrinho}><img src={shoppingCartIcon} alt="Shopping Cart Icon"/></CartButton>
+        <CartButton onClick={this.toggleCarrinho}>
+          <img src={shoppingCartIcon} alt="Shopping Cart Icon"/>
+          {this.contarItems() ? <div>{this.contarItems()}</div> : ''}
+        </CartButton>
       </div>
     );
   }
