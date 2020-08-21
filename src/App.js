@@ -60,6 +60,15 @@ class App extends Component {
     iconeCarrinho: [],
   }
 
+  componentDidMount = () => {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || []
+    this.setState({iconeCarrinho: carrinho})
+  }
+
+  componentDidUpdate = () => {
+    localStorage.setItem('carrinho', JSON.stringify(this.state.iconeCarrinho))
+  }
+
   onChangeValorMaximo = (e) => {
     this.setState({filtroValorMaximo: Number(e.target.value)})
   }
